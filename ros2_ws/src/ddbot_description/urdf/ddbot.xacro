@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ddbot">
+
+    <!-- Link Properties Macros -->
+    <xacro:include filename="$(find ddbot_description)/urdf/link_properties.xacro" />
+
+    <!-- Base Link -->
+    <xacro:property name="base_m" value="10" />
+    <xacro:property name="base_l" value="0.5" />
+    <xacro:property name="base_w" value="0.35" />
+    <xacro:property name="base_h" value="0.1" />
+
+    <link name="base_link">
+        <xacro:box_link m="${base_m}" l="${base_l}" w="${base_w}" h="${base_h}"
+            material="light_grey" />
+    </link>
+
+    <!-- Wheel Mounts -->
+    <xacro:property name="wheel_mount_m" value="0.5" />
+    <xacro:property name="wheel_mount_l" value="0.04" />
+    <xacro:property name="wheel_mount_w" value="0.04" />
+    <xacro:property name="wheel_mount_h" value="0.08" />
+    <xacro:property name="wheel_mount_dx" value="${base_l/2-wheel_mount_l/2}" />
+    <xacro:property name="wheel_mount_dy" value="${base_w/2-wheel_mount_w/2}" />
+    <xacro:property name="wheel_mount_dz" value="${base_h/2+wheel_mount_h/2}" />
+
+    <link name="wheel_mount_fl">
+        <xacro:box_link m="${wheel_mount_m}" l="${wheel_mount_l}" w="${wheel_mount_w}"
+            h="${wheel_mount_h}"
+            material="light_grey" />
+    </link>
+    <joint name="wheel_mount_fl_joint" type="fixed">
+        <origin xyz="${wheel_mount_dx} ${wheel_mount_dy} ${-wheel_mount_dz}" rpy="0.0 0.0 0.0" />
+        <parent link="base_link" />
+        <child link="wheel_mount_fl" />
+    </joint>
+
+    <link name="wheel_mount_rl">
+        <xacro:box_link m="${wheel_mount_m}" l="${wheel_mount_l}" w="${wheel_mount_w}"
+            h="${wheel_mount_h}"
+            material="light_grey" />
+    </link>
+    <joint name="wheel_mount_rl_joint" type="fixed">
+        <origin xyz="${-wheel_mount_dx} ${wheel_mount_dy} ${-wheel_mount_dz}" rpy="0.0 0.0 0.0" />
+        <parent link="base_link" />
+        <child link="wheel_mount_rl" />
+    </joint>
+
+    <link name="wheel_mount_rr">
+        <xacro:box_link m="${wheel_mount_m}" l="${wheel_mount_l}" w="${wheel_mount_w}"
+            h="${wheel_mount_h}"
+            material="light_grey" />
+    </link>
+    <joint name="wheel_mount_rr_joint" type="fixed">
+        <origin xyz="${-wheel_mount_dx} ${-wheel_mount_dy} ${-wheel_mount_dz}" rpy="0.0 0.0 0.0" />
+        <parent link="base_link" />
+        <child link="wheel_mount_rr" />
+    </joint>
+
+    <link name="wheel_mount_fr">
+        <xacro:box_link m="${wheel_mount_m}" l="${wheel_mount_l}" w="${wheel_mount_w}"
+            h="${wheel_mount_h}"
+            material="light_grey" />
+    </link>
+    <joint name="wheel_mount_fr_joint" type="fixed">
+        <origin xyz="${wheel_mount_dx} ${-wheel_mount_dy} ${-wheel_mount_dz}" rpy="0.0 0.0 0.0" />
+        <parent link="base_link" />
+        <child link="wheel_mount_fr" />
+    </joint>
+
+    <!-- Wheels -->
+    <xacro:property name="wheel_m" value="0.5" />
+    <xacro:property name="wheel_r" value="0.12" />
+    <xacro:property name="wheel_l" value="0.06" />
+
+    <link name="wheel_fl">
+        <xacro:cylinder_link m="${wheel_m}" r="${wheel_r}" l="${wheel_l}" material="black" />
+    </link>
+    <joint name="wheel_fl_joint" type="continuous">
+        <origin xyz="0.0 ${wheel_mount_w/2+wheel_l/2} 0.0" rpy="${-pi/2} 0.0 0.0" />
+        <parent link="wheel_mount_fl" />
+        <child link="wheel_fl" />
+        <axis xyz="0.0 0.0 1.0" />
+    </joint>
+
+    <link name="wheel_rl">
+        <xacro:cylinder_link m="${wheel_m}" r="${wheel_r}" l="${wheel_l}" material="black" />
+    </link>
+    <joint name="wheel_rl_joint" type="continuous">
+        <origin xyz="0.0 ${wheel_mount_w/2+wheel_l/2} 0.0" rpy="${-pi/2} 0.0 0.0" />
+        <parent link="wheel_mount_rl" />
+        <child link="wheel_rl" />
+        <axis xyz="0.0 0.0 1.0" />
+    </joint>
+
+    <link name="wheel_rr">
+        <xacro:cylinder_link m="${wheel_m}" r="${wheel_r}" l="${wheel_l}" material="black" />
+    </link>
+    <joint name="wheel_rr_joint" type="continuous">
+        <origin xyz="0.0 -${wheel_mount_w/2+wheel_l/2} 0.0" rpy="${-pi/2} 0.0 0.0" />
+        <parent link="wheel_mount_rr" />
+        <child link="wheel_rr" />
+        <axis xyz="0.0 0.0 1.0" />
+    </joint>
+
+    <link name="wheel_fr">
+        <xacro:cylinder_link m="${wheel_m}" r="${wheel_r}" l="${wheel_l}" material="black" />
+    </link>
+    <joint name="wheel_fr_joint" type="continuous">
+        <origin xyz="0.0 -${wheel_mount_w/2+wheel_l/2} 0.0" rpy="${-pi/2} 0.0 0.0" />
+        <parent link="wheel_mount_fr" />
+        <child link="wheel_fr" />
+        <axis xyz="0.0 0.0 1.0" />
+    </joint>
+
+    <!-- Lidar -->
+    <xacro:property name="lidar_m" value="0.4" />
+    <xacro:property name="lidar_r" value="0.06" />
+    <xacro:property name="lidar_l" value="0.08" />
+
+    <link name="lidar">
+        <xacro:cylinder_link m="${lidar_m}" r="${lidar_r}" l="${lidar_l}" material="dark_grey" />
+    </link>
+    <joint name="lidar_joint" type="fixed">
+        <origin xyz="0.0 0.0 ${base_h/2+lidar_l/2}" rpy="0.0 0.0 0.0" />
+        <parent link="base_link" />
+        <child link="lidar" />
+    </joint>
+
+    <!-- RGBD Camera -->
+    <xacro:property name="rgbd_camera_m" value="0.25" />
+    <xacro:property name="rgbd_camera_l" value="0.04" />
+    <xacro:property name="rgbd_camera_w" value="0.12" />
+    <xacro:property name="rgbd_camera_h" value="0.03" />
+
+    <link name="rgbd_camera">
+        <xacro:box_link m="${rgbd_camera_m}" l="${rgbd_camera_l}" w="${rgbd_camera_w}"
+            h="${rgbd_camera_h}"
+            material="dark_grey" />
+    </link>
+    <joint name="rgbd_camera_joint" type="fixed">
+        <origin xyz="${base_l/2+rgbd_camera_l/2} 0.0 ${base_h/2-rgbd_camera_h/2}" rpy="0.0 0.0 0.0" />
+        <parent link="base_link" />
+        <child link="rgbd_camera" />
+    </joint>
+
+    <link name="rgbd_camera_frame" />
+    <joint name="rgbd_camera_frame_joint" type="fixed">
+        <origin xyz="${rgbd_camera_l/2} 0.0 0.0" rpy="0.0 0.0 0.0" />
+        <parent link="rgbd_camera" />
+        <child link="rgbd_camera_frame" />
+    </joint>
+
+    <!-- GPS Tracker -->
+    <xacro:property name="gps_tracker_m" value="0.05" />
+    <xacro:property name="gps_tracker_r" value="0.02" />
+    <xacro:property name="gps_tracker_l" value="0.02" />
+
+    <link name="gps_tracker">
+        <xacro:cylinder_link m="${gps_tracker_m}" r="${gps_tracker_r}" l="${gps_tracker_l}"
+            material="black" />
+    </link>
+    <joint name="gps_tracker_joint" type="fixed">
+        <origin xyz="-${base_l/2-gps_tracker_r} 0.0 ${base_h/2+gps_tracker_l/2}" rpy="0.0 0.0 0.0" />
+        <parent link="base_link" />
+        <child link="gps_tracker" />
+    </joint>
+
+    <!-- Ultrasonic Sensors -->
+    <xacro:property name="us_sensor_m" value="0.1" />
+    <xacro:property name="us_sensor_r" value="0.02" />
+    <xacro:property name="us_sensor_l" value="0.06" />
+
+    <link name="us_sensor_front">
+        <xacro:cylinder_link m="${us_sensor_m}" r="${us_sensor_r}" l="${us_sensor_l}"
+            material="dark_grey" />
+    </link>
+    <joint name="us_sensor_front_joint" type="fixed">
+        <origin xyz="${base_l/2-us_sensor_l/2} 0.0 ${-base_h/2-us_sensor_r}" rpy="0.0 ${pi/2} 0.0" />
+        <parent link="base_link" />
+        <child link="us_sensor_front" />
+    </joint>
+
+    <link name="us_sensor_left">
+        <xacro:cylinder_link m="${us_sensor_m}" r="${us_sensor_r}" l="${us_sensor_l}"
+            material="dark_grey" />
+    </link>
+    <joint name="us_sensor_left_joint" type="fixed">
+        <origin xyz="0.0 ${base_w/2-us_sensor_l/2} ${-base_h/2-us_sensor_r}" rpy="${-pi/2} 0.0 0.0" />
+        <parent link="base_link" />
+        <child link="us_sensor_left" />
+    </joint>
+
+    <link name="us_sensor_rear">
+        <xacro:cylinder_link m="${us_sensor_m}" r="${us_sensor_r}" l="${us_sensor_l}"
+            material="dark_grey" />
+    </link>
+    <joint name="us_sensor_rear_joint" type="fixed">
+        <origin xyz="-${base_l/2-us_sensor_l/2} 0.0 ${-base_h/2-us_sensor_r}" rpy="0.0 ${-pi/2} 0.0" />
+        <parent link="base_link" />
+        <child link="us_sensor_rear" />
+    </joint>
+
+    <link name="us_sensor_right">
+        <xacro:cylinder_link m="${us_sensor_m}" r="${us_sensor_r}" l="${us_sensor_l}"
+            material="dark_grey" />
+    </link>
+    <joint name="us_sensor_right_joint" type="fixed">
+        <origin xyz="0.0 -${base_w/2-us_sensor_l/2} ${-base_h/2-us_sensor_r}" rpy="${pi/2} 0.0 0.0" />
+        <parent link="base_link" />
+        <child link="us_sensor_right" />
+    </joint>
+
+</robot>

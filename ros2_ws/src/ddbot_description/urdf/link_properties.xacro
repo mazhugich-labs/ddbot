@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Materials -->
+    <xacro:include filename="$(find ddbot_description)/urdf/materials.xacro" />
+
+    <!-- Box Link Properties -->
+    <xacro:macro name="__box_property" params="size">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+
+        <geometry>
+            <box size="${size}" />
+        </geometry>
+    </xacro:macro>
+
+    <xacro:macro name="box_link" params="m l w h material='grey'">
+        <collision>
+            <xacro:__box_property size="${l} ${w} ${h}" />
+        </collision>
+
+        <visual>
+            <xacro:__box_property size="${l} ${w} ${h}" />
+            <material name="${material}" />
+        </visual>
+
+        <inertial>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <mass value="${m}" />
+            <inertia
+                ixx="${m * (w * w + h * h) / 12}" ixy="0" ixz="0"
+                iyy="${m * (l * l + h * h) / 12}"
+                iyz="0" izz="${m * (w * w + l * l) / 12}" />
+        </inertial>
+    </xacro:macro>
+
+    <!-- Cylinder Link Properties -->
+    <xacro:macro name="__cylinder_property" params="r l">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+
+        <geometry>
+            <cylinder radius="${r}" length="${l}" />
+        </geometry>
+    </xacro:macro>
+
+    <xacro:macro name="cylinder_link" params="m r l material='grey'">
+        <collision>
+            <xacro:__cylinder_property r="${r}" l="${l}" />
+        </collision>
+
+        <visual>
+            <xacro:__cylinder_property r="${r}" l="${l}" />
+            <material name="${material}" />
+        </visual>
+
+        <inertial>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <mass value="${m}" />
+            <inertia ixx="${m * (3 * r * r + l * l) / 12}" ixy="0" ixz="0"
+                iyy="${m * (3 * r * r + l * l) / 12}" iyz="0" izz="${m * r * r / 2}" />
+        </inertial>
+    </xacro:macro>
+
+    <!-- Sphere Link Properties -->
+    <xacro:macro name="__sphere_property" params="r">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+
+        <geometry>
+            <sphere radius="${r}" />
+        </geometry>
+    </xacro:macro>
+
+    <xacro:macro name="sphere_link" params="m r material='grey'">
+        <collision>
+            <xacro:__sphere_property radius="${r}" />
+        </collision>
+
+        <visual>
+            <xacro:__sphere_property radius="${r}" />
+            <material name="${material}" />
+        </visual>
+
+        <inertial>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <mass value="${m}" />
+            <inertia ixx="${2 * m * r * r / 5}" ixy="0" ixz="0" iyy="${2 * m * r * r / 5}" iyz="0"
+                izz="${2 * m * r * r / 5}" />
+        </inertial>
+    </xacro:macro>
+
+</robot>

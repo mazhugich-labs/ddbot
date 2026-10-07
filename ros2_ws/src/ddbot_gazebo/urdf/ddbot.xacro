@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ddbot">
+
+    <xacro:arg name="wheel_odom_topic" default="odom" />
+    <xacro:arg name="odometry_source" default="world" />
+    <xacro:property name="odometry_source" value="$(arg odometry_source)" />
+
+    <xacro:include filename="$(find ddbot_description)/urdf/ddbot.xacro" />
+
+    <link name="base_footprint" />
+    <joint name="base_footprint_joint" type="fixed">
+        <origin xyz="0.0 0.0 ${base_h/2+wheel_mount_h/2+wheel_r}" rpy="0.0 0.0 0.0" />
+        <child link="base_link" />
+        <parent link="base_footprint" />
+    </joint>
+
+    <xacro:include filename="$(find ddbot_gazebo)/urdf/ddbot.gazebo.xacro" />
+
+</robot>

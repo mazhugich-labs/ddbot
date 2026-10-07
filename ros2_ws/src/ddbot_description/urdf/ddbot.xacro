@@ -5,9 +5,9 @@
     <xacro:include filename="$(find ddbot_description)/urdf/link_properties.xacro" />
 
     <!-- Base Link -->
-    <xacro:property name="base_m" value="10" />
+    <xacro:property name="base_m" value="5.0" />
     <xacro:property name="base_l" value="0.5" />
-    <xacro:property name="base_w" value="0.35" />
+    <xacro:property name="base_w" value="0.4" />
     <xacro:property name="base_h" value="0.1" />
 
     <link name="base_link">
@@ -69,9 +69,9 @@
     </joint>
 
     <!-- Wheels -->
-    <xacro:property name="wheel_m" value="0.5" />
+    <xacro:property name="wheel_m" value="0.4" />
     <xacro:property name="wheel_r" value="0.12" />
-    <xacro:property name="wheel_l" value="0.06" />
+    <xacro:property name="wheel_l" value="0.08" />
 
     <link name="wheel_fl">
         <xacro:cylinder_link m="${wheel_m}" r="${wheel_r}" l="${wheel_l}" material="black" />

@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Lidar Config -->
+    <xacro:property name="lidar_update_rate" value="30" />
+    <xacro:property name="lidar_sample_size" value="361" />
+    <xacro:property name="lidar_min_angle" value="0" />
+    <xacro:property name="lidar_max_angle" value="360" />
+    <xacro:property name="lidar_min_range" value="0.55" />
+    <xacro:property name="lidar_max_range" value="16" />
+
+    <gazebo reference="lidar">
+        <sensor name='gpu_lidar' type='gpu_lidar'>
+            <topic>scan</topic>
+            <update_rate>${lidar_update_rate}</update_rate>
+            <ignition_frame_id>lidar</ignition_frame_id>
+            <lidar>
+                <scan>
+                    <horizontal>
+                        <samples>${lidar_sample_size}</samples>
+                        <resolution>1</resolution>
+                        <min_angle>${radians(lidar_min_angle)}</min_angle>
+                        <max_angle>${radians(lidar_max_angle)}</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>${lidar_min_range}</min>
+                    <max>${lidar_max_range}</max>
+                    <resolution>0.01</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.001</stddev>
+                </noise>
+            </lidar>
+            <alwaysOn>1</alwaysOn>
+            <visualize>true</visualize>
+        </sensor>
+    </gazebo>
+
+    <!-- Camera Config -->
+    <xacro:property name="camera_horizontal_fov" value="60" />
+
+    <gazebo reference="rgbd_camera_frame">
+        <sensor type="depth_camera" name="kinect_camera">
+            <update_rate>30.0</update_rate>
+            <topic>rgbd_camera</topic>
+            <ignition_frame_id>rgbd_camera_frame</ignition_frame_id>
+            <camera_info_topic>rgbd_camera_frame/camera_info</camera_info_topic>
+            <camera>
+                <horizontal_fov>${radians(camera_horizontal_fov)}</horizontal_fov>
+                <image>
+                    <width>640</width>
+                    <height>480</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.05</near>
+                    <far>8.0</far>
+                </clip>
+            </camera>
+        </sensor>
+    </gazebo>
+
+    <!-- IMU Sensor Config -->
+    <gazebo reference="imu">
+        <sensor name="imu_sensor" type="imu">
+            <always_on>1</always_on>
+            <update_rate>25</update_rate>
+            <ignition_frame_id>imu</ignition_frame_id>
+            <visualize>true</visualize>
+            <topic>imu</topic>
+        </sensor>
+    </gazebo>
+
+    <!-- GPS Tracker Config -->
+    <gazebo reference="gps_tracker">
+        <sensor name="navsat" type="navsat">
+            <always_on>1</always_on>
+            <update_rate>10</update_rate>
+            <topic>navsat</topic>
+            <ignition_frame_id>gps_tracker</ignition_frame_id>
+        </sensor>
+    </gazebo>
+
+    <!-- Ultrasonic Sensors -->
+    <xacro:property name="us_update_rate" value="40" />
+    <xacro:property name="us_sample_size" value="1" />
+    <xacro:property name="us_min_angle" value="-7.5" />
+    <xacro:property name="us_max_angle" value="7.5" />
+    <xacro:property name="us_min_range" value="0.02" />
+    <xacro:property name="us_max_range" value="4" />
+
+    <xacro:macro name="us_sensor" params="frame topic">
+        <gazebo reference="${frame}">
+            <sensor name='${frame}' type='gpu_lidar'>
+                <topic>${topic}</topic>
+                <update_rate>${us_update_rate}</update_rate>
+                <ignition_frame_id>${frame}</ignition_frame_id>
+                <lidar>
+                    <scan>
+                        <horizontal>
+                            <samples>${us_sample_size}</samples>
+                            <resolution>1</resolution>
+                            <min_angle>${radians(us_min_angle)}</min_angle>
+                            <max_angle>${radians(us_max_angle)}</max_angle>
+                        </horizontal>
+                    </scan>
+                    <range>
+                        <min>${us_min_range}</min>
+                        <max>${us_max_range}</max>
+                        <resolution>0.003</resolution>
+                    </range>
+                    <noise>
+                        <type>gaussian</type>
+                        <mean>0.0</mean>
+                        <stddev>0.002</stddev>
+                    </noise>
+                </lidar>
+                <alwaysOn>1</alwaysOn>
+                <visualize>true</visualize>
+            </sensor>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:us_sensor frame="us_sensor_front" topic="ultrasonic/front" />
+    <xacro:us_sensor frame="us_sensor_left" topic="ultrasonic/left" />
+    <xacro:us_sensor frame="us_sensor_rear" topic="ultrasonic/rear" />
+    <xacro:us_sensor frame="us_sensor_right" topic="ultrasonic/right" />
+
+</robot>

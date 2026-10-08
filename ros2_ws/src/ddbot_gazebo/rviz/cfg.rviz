@@ -5,7 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /TF1/Frames1
+        - /Imu1/Axes properties1
       Splitter Ratio: 0.5
     Tree Height: 555
   - Class: rviz_common/Selection
@@ -169,8 +169,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: -0.6787555813789368
-        Min Value: -8.136829376220703
+        Max Value: 8.153178215026855
+        Min Value: 0.8569798469543457
         Value: true
       Axis: X
       Channel Name: intensity
@@ -241,7 +241,7 @@ Visualization Manager:
         Derotate acceleration: true
         Enable acceleration: false
       Axes properties:
-        Axes scale: 0.25
+        Axes scale: 0.10000000149011612
         Enable axes: true
       Box properties:
         Box alpha: 1
@@ -277,6 +277,8 @@ Visualization Manager:
           Value: false
         lidar:
           Value: false
+        map:
+          Value: true
         odom:
           Value: false
         rgbd_camera:
@@ -313,38 +315,39 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        odom:
-          base_footprint:
-            base_link:
-              gps_tracker:
-                {}
-              imu:
-                {}
-              lidar:
-                {}
-              rgbd_camera:
-                rgbd_camera_frame:
+        map:
+          odom:
+            base_footprint:
+              base_link:
+                gps_tracker:
                   {}
-              us_sensor_front:
-                {}
-              us_sensor_left:
-                {}
-              us_sensor_rear:
-                {}
-              us_sensor_right:
-                {}
-              wheel_mount_fl:
-                wheel_fl:
+                imu:
                   {}
-              wheel_mount_fr:
-                wheel_fr:
+                lidar:
                   {}
-              wheel_mount_rl:
-                wheel_rl:
+                rgbd_camera:
+                  rgbd_camera_frame:
+                    {}
+                us_sensor_front:
                   {}
-              wheel_mount_rr:
-                wheel_rr:
+                us_sensor_left:
                   {}
+                us_sensor_rear:
+                  {}
+                us_sensor_right:
+                  {}
+                wheel_mount_fl:
+                  wheel_fl:
+                    {}
+                wheel_mount_fr:
+                  wheel_fr:
+                    {}
+                wheel_mount_rl:
+                  wheel_rl:
+                    {}
+                wheel_mount_rr:
+                  wheel_rr:
+                    {}
       Update Interval: 0
       Value: true
     - Alpha: 0.699999988079071
@@ -546,25 +549,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 5.43764591217041
+      Distance: 4.414767265319824
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.31135284900665283
-        Y: 1.1569015979766846
-        Z: -0.3770844638347626
+        X: 0.6296512484550476
+        Y: 0.4915039539337158
+        Z: -0.6397921442985535
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.39539769291877747
+      Pitch: 0.6403974890708923
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 5.083563804626465
+      Yaw: 4.14855432510376
     Saved: ~
 Window Geometry:
   Displays:
@@ -582,5 +585,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1200
-  X: 1047
-  Y: 431
+  X: 775
+  Y: 188

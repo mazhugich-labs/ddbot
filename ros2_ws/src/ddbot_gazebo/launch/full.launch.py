@@ -1,8 +1,9 @@
 import os
 
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch_ros.actions import Node
+from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
 
@@ -15,20 +16,30 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             os.path.join(pkg_share, "launch", "ign.launch.py")
         ),
-        launch_arguments={}.items(),
+        launch_arguments={
+            "use_sim_time": "true",
+            "world_file": LaunchConfiguration("world_file"),
+        }.items(),
     )
 
     rviz2 = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_share, "launch", "rviz.launch.py")
         ),
-        launch_arguments={}.items(),
+        launch_arguments={"use_sim_time": "true"}.items(),
     )
 
-    ddbot_teleop_gui = Node(
-        package="ddbot_teleop_gui",
-        executable="ddbot_teleop_gui",
+    ddbot_teleop = Node(
+        package="ddbot_teleop",
+        executable="ddbot_teleop",
         output="screen",
     )
 
-    return LaunchDescription([gz_sim, rviz2, ddbot_teleop_gui])
+    return LaunchDescription(
+        [
+            DeclareLaunchArgument("world_file", default_value="default.sdf"),
+            gz_sim,
+            rviz2,
+            ddbot_teleop,
+        ]
+    )

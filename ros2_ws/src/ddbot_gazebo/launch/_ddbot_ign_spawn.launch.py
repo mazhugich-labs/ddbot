@@ -1,7 +1,7 @@
 import os
 
 from ament_index_python.packages import get_package_share_directory
-from launch.substitutions import LaunchConfiguration, Command
+from launch.substitutions import Command, LaunchConfiguration
 from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument
 from launch import LaunchDescription
@@ -10,8 +10,6 @@ from launch import LaunchDescription
 def generate_launch_description():
     pkg_name = "ddbot_gazebo"
     pkg_share = get_package_share_directory(pkg_name)
-
-    odometry_source = LaunchConfiguration("odometry_source")
 
     robot_state_publisher = Node(
         package="robot_state_publisher",
@@ -23,8 +21,6 @@ def generate_launch_description():
                     [
                         "xacro ",
                         os.path.join(pkg_share, "urdf/ddbot.xacro"),
-                        " odometry_source:=",
-                        odometry_source,
                     ]
                 )
             }
@@ -57,7 +53,7 @@ def generate_launch_description():
         arguments=[
             "/cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist",
             "/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock",
-            "/odom@nav_msgs/msg/Odometry[ignition.msgs.Odometry",
+            "/wheel/odom@nav_msgs/msg/Odometry[ignition.msgs.Odometry",
             "/tf@tf2_msgs/msg/TFMessage[ignition.msgs.Pose_V",
             "/scan@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan",
             "/ultrasonic/front@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan",
@@ -73,7 +69,7 @@ def generate_launch_description():
         ],
         remappings=[
             ("/world/default/model/ddbot/joint_state", "ddbot/joint_states"),
-            ("/odom", "ddbot/odom"),
+            ("/wheel/odom", "ddbot/wheel/odom"),
             ("/scan", "ddbot/scan"),
             ("/ultrasonic/front", "ddbot/ultrasonic/front"),
             ("/ultrasonic/left", "ddbot/ultrasonic/left"),
@@ -90,7 +86,6 @@ def generate_launch_description():
 
     return LaunchDescription(
         [
-            DeclareLaunchArgument("odometry_source", default_value="world"),
             robot_state_publisher,
             gz_spawn_entity,
             gz_ros2_bridge,

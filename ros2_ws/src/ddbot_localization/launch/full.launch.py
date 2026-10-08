@@ -40,7 +40,8 @@ def generate_launch_description():
             os.path.join(pkg_gazebo_share, "launch", "rviz.launch.py")
         ),
         launch_arguments={
-            "rviz2_cfg": os.path.join(pkg_share, "rviz", "cfg.rviz")
+            "rviz2_cfg": os.path.join(pkg_share, "rviz", "cfg.rviz"),
+            "use_sim_time": "true",
         }.items(),
     )
 

@@ -41,7 +41,7 @@ def generate_launch_description():
             DeclareLaunchArgument("use_sim_time", default_value="false"),
             DeclareLaunchArgument(
                 "rviz2_cfg",
-                default_value=os.path.join(pkg_share, "rviz", "config.rviz"),
+                default_value=os.path.join(pkg_share, "rviz", "cfg.rviz"),
             ),
             robot_state_publisher,
             rviz2,

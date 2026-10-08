@@ -35,11 +35,27 @@ def generate_launch_description():
         output="screen",
     )
 
+    odom = Node(
+        package="odom_to_tf_ros2",
+        executable="odom_to_tf",
+        name="odom_to_tf",
+        output="screen",
+        parameters=[
+            {
+                "odom_topic": "/ddbot/wheel/odom",
+                "frame_id": "odom",
+                "child_frame_id": "base_footprint",
+                "inverse_tf": False,
+            }
+        ],
+    )
+
     return LaunchDescription(
         [
             DeclareLaunchArgument("world_file", default_value="default.sdf"),
             gz_sim,
             rviz2,
             ddbot_teleop,
+            odom,
         ]
     )

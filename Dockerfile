@@ -32,9 +32,10 @@ RUN apt-get update && apt-get install -y \
     ros-$ROS_DISTRO-joint-state-publisher-gui \
     ros-$ROS_DISTRO-rviz-imu-plugin \
     ros-$ROS_DISTRO-rviz-satellite \
-    ros-$ROS_DISTR-ros2-control \
-    ros-$ROS_DISTR-ros2-controllers \
-    ros-$ROS_DISTR-slam-toolbox
+    ros-$ROS_DISTRO-ros2-control \
+    ros-$ROS_DISTRO-ros2-controllers \
+    ros-$ROS_DISTRO-slam-toolbox \
+    ros-$ROS_DISTRO-robot-localization
 
 RUN apt-get update && apt-get install -y \
     mesa-utils

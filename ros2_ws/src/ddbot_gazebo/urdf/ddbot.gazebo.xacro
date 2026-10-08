@@ -18,35 +18,11 @@
     <gazebo>
         <plugin filename="ignition-gazebo-diff-drive-system"
             name="ignition::gazebo::systems::DiffDrive">
-            <left_joint>wheel_rl_joint</left_joint>
-            <right_joint>wheel_rr_joint</right_joint>
-
-            <wheel_separation>${base_w+wheel_l}</wheel_separation>
-
-            <wheel_radius>${wheel_r}</wheel_radius>
-
-            <odom_publish_frequency>30</odom_publish_frequency>
-
-            <topic>/cmd_vel</topic>
-            <xacro:if value="${odometry_source == 'encoders'}">
-                <odom_topic>$(arg wheel_odom_topic)</odom_topic>
-                <tf_topic>/tf</tf_topic>
-
-            </xacro:if>
-
-            <max_wheel_torque>5</max_wheel_torque>
-            <max_wheel_acceleration>0.5</max_wheel_acceleration>
-
-            <frame_id>odom</frame_id>
-            <child_frame_id>base_footprint</child_frame_id>
-        </plugin>
-    </gazebo>
-
-    <gazebo>
-        <plugin filename="ignition-gazebo-diff-drive-system"
-            name="ignition::gazebo::systems::DiffDrive">
             <left_joint>wheel_fl_joint</left_joint>
             <right_joint>wheel_fr_joint</right_joint>
+
+            <left_joint>wheel_rl_joint</left_joint>
+            <right_joint>wheel_rr_joint</right_joint>
 
             <wheel_separation>${base_w+wheel_l}</wheel_separation>
 
@@ -170,5 +146,50 @@
             <topic>navsat</topic>
         </sensor>
     </gazebo>
+
+    <!-- Ultrasonic Sensors -->
+    <xacro:property name="us_update_rate" value="40" />
+    <xacro:property name="us_sample_size" value="11" />
+    <xacro:property name="us_min_angle" value="-7.5" />
+    <xacro:property name="us_max_angle" value="7.5" />
+    <xacro:property name="us_min_range" value="0.02" />
+    <xacro:property name="us_max_range" value="4" />
+
+    <xacro:macro name="us_sensor" params="frame topic">
+        <gazebo reference="${frame}">
+            <sensor name='${frame}' type='gpu_lidar'>
+                <topic>${topic}</topic>
+                <update_rate>${us_update_rate}</update_rate>
+                <ignition_frame_id>${frame}</ignition_frame_id>
+                <lidar>
+                    <scan>
+                        <horizontal>
+                            <samples>${us_sample_size}</samples>
+                            <resolution>1</resolution>
+                            <min_angle>${radians(us_min_angle)}</min_angle>
+                            <max_angle>${radians(us_max_angle)}</max_angle>
+                        </horizontal>
+                    </scan>
+                    <range>
+                        <min>${us_min_range}</min>
+                        <max>${us_max_range}</max>
+                        <resolution>0.003</resolution>
+                    </range>
+                    <noise>
+                        <type>gaussian</type>
+                        <mean>0.0</mean>
+                        <stddev>0.002</stddev>
+                    </noise>
+                </lidar>
+                <alwaysOn>1</alwaysOn>
+                <visualize>true</visualize>
+            </sensor>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:us_sensor frame="us_sensor_front" topic="ultrasonic/front" />
+    <xacro:us_sensor frame="us_sensor_left" topic="ultrasonic/left" />
+    <xacro:us_sensor frame="us_sensor_rear" topic="ultrasonic/rear" />
+    <xacro:us_sensor frame="us_sensor_right" topic="ultrasonic/right" />
 
 </robot>

@@ -169,14 +169,14 @@
     <!-- Ultrasonic Sensors -->
     <xacro:property name="us_sensor_m" value="0.1" />
     <xacro:property name="us_sensor_r" value="0.02" />
-    <xacro:property name="us_sensor_l" value="0.06" />
+    <xacro:property name="us_sensor_l" value="0.02" />
 
     <link name="us_sensor_front">
         <xacro:cylinder_link m="${us_sensor_m}" r="${us_sensor_r}" l="${us_sensor_l}"
             material="dark_grey" />
     </link>
     <joint name="us_sensor_front_joint" type="fixed">
-        <origin xyz="${base_l/2-us_sensor_l/2} 0.0 ${-base_h/2-us_sensor_r}" rpy="0.0 ${pi/2} 0.0" />
+        <origin xyz="${base_l/2-us_sensor_r} 0.0 -${base_h/2+us_sensor_l/2}" rpy="0.0 0.0 0.0" />
         <parent link="base_link" />
         <child link="us_sensor_front" />
     </joint>
@@ -186,7 +186,7 @@
             material="dark_grey" />
     </link>
     <joint name="us_sensor_left_joint" type="fixed">
-        <origin xyz="0.0 ${base_w/2-us_sensor_l/2} ${-base_h/2-us_sensor_r}" rpy="${-pi/2} 0.0 0.0" />
+        <origin xyz="0.0 ${base_w/2-us_sensor_r} -${base_h/2+us_sensor_l/2}" rpy="0.0 0.0 ${pi/2}" />
         <parent link="base_link" />
         <child link="us_sensor_left" />
     </joint>
@@ -196,7 +196,7 @@
             material="dark_grey" />
     </link>
     <joint name="us_sensor_rear_joint" type="fixed">
-        <origin xyz="-${base_l/2-us_sensor_l/2} 0.0 ${-base_h/2-us_sensor_r}" rpy="0.0 ${-pi/2} 0.0" />
+        <origin xyz="-${base_l/2-us_sensor_r} 0.0 -${base_h/2+us_sensor_l/2}" rpy="0.0 0.0 ${pi}" />
         <parent link="base_link" />
         <child link="us_sensor_rear" />
     </joint>
@@ -206,7 +206,7 @@
             material="dark_grey" />
     </link>
     <joint name="us_sensor_right_joint" type="fixed">
-        <origin xyz="0.0 -${base_w/2-us_sensor_l/2} ${-base_h/2-us_sensor_r}" rpy="${pi/2} 0.0 0.0" />
+        <origin xyz="0.0 -${base_w/2-us_sensor_r} -${base_h/2+us_sensor_l/2}" rpy="0.0 0.0 -${pi/2}" />
         <parent link="base_link" />
         <child link="us_sensor_right" />
     </joint>

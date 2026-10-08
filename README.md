@@ -31,3 +31,29 @@
 4. [] Запустить и отладить симуляцию.
 5. [] Записать видео 1–3 минуты.
 6. [] Оформить Git-репозиторий с README (инструкция запуска, зависимости, описание).
+
+## Описание пакетов ROS 2
+
+> Перед запуском необходимо забилдить пакеты:
+```bash
+colcon build --symlink-install
+source install/setup.bash
+```
+
+## ddbot_description
+Содержит описание 4-колесного мобильного робота с дифференциальным приводом:
+```bash
+ros2 launch ddbot_description rviz.launch.py
+```
+
+![ddbot_description](assets/ddbot_description.png)
+
+## ddbot_gazebo
+Содержит описание контроллера дифференциального привода и датчиков (imu, gps, lidar, depth camera):
+```bash
+ros2 launch ddbot_gazebo full.launch.py
+```
+
+[Открыть видео](./assets/ddbot_gazebo.mp4)
+
+> Карта с препятствиями построена благодаря [Dynamic World Generator Wizard](https://github.com/ali-pahlevani/Dynamic_World_Generator)

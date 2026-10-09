@@ -36,4 +36,9 @@ def generate_launch_description():
         ],
     )
 
-    return LaunchDescription([ekf_map, ekf_navsat])
+    return LaunchDescription(
+        [
+            ekf_map,
+            ekf_navsat,
+        ]
+    )

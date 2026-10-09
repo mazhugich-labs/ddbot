@@ -1,14 +1,8 @@
-# For parameter descriptions, please refer to the template parameter files for each node.
-
 ekf_filter_node_odom:
   ros__parameters:
     frequency: 25.0
-    sensor_timeout: 0.1
+
     two_d_mode: true
-    transform_time_offset: 0.0
-    transform_timeout: 0.0
-    print_diagnostics: true
-    debug: false
 
     map_frame: map
     odom_frame: odom
@@ -19,14 +13,14 @@ ekf_filter_node_odom:
     odom0_config: [
       false, false, false,
       false, false, false,
-      true,  false, false,
+      true, false, false,
       false, false, false,
       false, false, false
     ]
-    odom0_queue_size: 10
-    odom0_nodelay: true
     odom0_differential: false
     odom0_relative: false
+    odom0_nodelay: false
+    odom0_queue_size: 15
 
     imu0: /ddbot/imu
     imu0_config: [
@@ -36,23 +30,29 @@ ekf_filter_node_odom:
       false, false, true,
       false, false, false
     ]
-    imu0_nodelay: false
     imu0_differential: false
     imu0_relative: false
-    imu0_queue_size: 10
+    imu0_nodelay: false
+    imu0_queue_size: 15
     imu0_remove_gravitational_acceleration: true
 
-    use_control: false
+    use_control: true
+    control_timeout: 0.0
+    control_config: [true, false, false, false, false, true]
+    acceleration_limits: [0.3, 0.0, 0.0, 0.0, 0.0, 1.25]
+    deceleration_limits: [0.3, 0.0, 0.0, 0.0, 0.0, 1.25]
+    acceleration_gains: [0.8, 0.0, 0.0, 0.0, 0.0, 0.5]
+    deceleration_gains: [0.9, 0.0, 0.0, 0.0, 0.0, 0.9]
 
 ekf_filter_node_map:
   ros__parameters:
     frequency: 25.0
-    sensor_timeout: 0.1
+
     two_d_mode: true
-    transform_time_offset: 0.0
-    transform_timeout: 0.0
-    print_diagnostics: true
-    debug: false
+
+    publish_acceleration: false
+
+    publish_tf: True
 
     map_frame: map
     odom_frame: odom
@@ -63,25 +63,14 @@ ekf_filter_node_map:
     odom0_config: [
       false, false, false,
       false, false, false,
-      true,  false, false,
+      true, false, false,
       false, false, false,
       false, false, false
     ]
-    odom0_queue_size: 10
-    odom0_nodelay: true
     odom0_differential: false
     odom0_relative: false
-
-    odom1: /odometry/gps
-    odom1_config: [true,  true,  false,
-                  false, false, false,
-                  false, false, false,
-                  false, false, false,
-                  false, false, false]
-    odom1_queue_size: 10
-    odom1_nodelay: true
-    odom1_differential: false
-    odom1_relative: false
+    odom0_nodelay: false
+    odom0_queue_size: 15
 
     imu0: /ddbot/imu
     imu0_config: [
@@ -91,21 +80,47 @@ ekf_filter_node_map:
       false, false, true,
       false, false, false
     ]
-    imu0_nodelay: true
     imu0_differential: false
     imu0_relative: false
-    imu0_queue_size: 10
+    imu0_nodelay: false
+    imu0_queue_size: 15
     imu0_remove_gravitational_acceleration: true
 
-    use_control: false
+    odom1: /odometry/gps
+    odom1_config: [true,  true,  false,
+                  false, false, false,
+                  false, false, false,
+                  false, false, false,
+                  false, false, false]
+    odom1_queue_size: 10
+    odom1_nodelay: true
+
+    # pose0: /pose
+    # pose0_config: [
+    #   true, true, false,
+    #   false, false, true,
+    #   false, false, false,
+    #   false, false, false,
+    #   false, false, false
+    # ]
+    # pose0_queue_size: 6
+    # pose0_nodelay: true
+
+    use_control: true
+    control_timeout: 0.0
+    control_config: [true, false, false, false, false, true]
+    acceleration_limits: [0.3, 0.0, 0.0, 0.0, 0.0, 1.25]
+    deceleration_limits: [0.3, 0.0, 0.0, 0.0, 0.0, 1.25]
+    acceleration_gains: [0.8, 0.0, 0.0, 0.0, 0.0, 0.5]
+    deceleration_gains: [0.9, 0.0, 0.0, 0.0, 0.0, 0.9]
+
 
 navsat_transform:
   ros__parameters:
-    frequency: 10.0
-    delay: 3.0
-    magnetic_declination_radians: -0.40143  # For lat/long -22.986687, -43.202501
+    frequency: 5.0
+    
+    magnetic_declination_radians: -0.40143
+    
     yaw_offset: 3.5
+    
     zero_altitude: true
-    use_odometry_yaw: false
-    publish_filtered_gps: false
-    broadcast_utm_transform: false

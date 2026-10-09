@@ -3,6 +3,7 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch.substitutions import Command, LaunchConfiguration
+from launch.conditions import UnlessCondition
 from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument
 from launch import LaunchDescription
@@ -23,9 +24,10 @@ def generate_launch_description():
         name="robot_state_publisher",
         output="screen",
         parameters=[
-            {"use_sim_time": LaunchConfiguration("use_sim_time")},
+            # {"use_sim_time": LaunchConfiguration("use_sim_time")},
             {"robot_description": robot_description},
         ],
+        condition=UnlessCondition(LaunchConfiguration("use_sim_time")),
     )
 
     rviz2 = Node(

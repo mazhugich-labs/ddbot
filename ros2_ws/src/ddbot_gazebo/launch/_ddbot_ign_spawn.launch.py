@@ -1,9 +1,8 @@
 import os
 
 from ament_index_python.packages import get_package_share_directory
-from launch.substitutions import Command, LaunchConfiguration
+from launch.substitutions import Command
 from launch_ros.actions import Node
-from launch.actions import DeclareLaunchArgument
 from launch import LaunchDescription
 
 
@@ -22,7 +21,8 @@ def generate_launch_description():
                         "xacro ",
                         os.path.join(pkg_share, "urdf/ddbot.xacro"),
                     ]
-                )
+                ),
+                "use_sim_time": True,
             }
         ],
         remappings=[

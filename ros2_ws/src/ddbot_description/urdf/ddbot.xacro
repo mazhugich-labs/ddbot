@@ -152,7 +152,7 @@
     </joint>
 
     <!-- GPS Tracker -->
-    <xacro:property name="gps_tracker_m" value="0.05" />
+    <xacro:property name="gps_tracker_m" value="0.1" />
     <xacro:property name="gps_tracker_r" value="0.02" />
     <xacro:property name="gps_tracker_l" value="0.02" />
 
@@ -167,7 +167,7 @@
     </joint>
 
     <!-- Ultrasonic Sensors -->
-    <xacro:property name="us_sensor_m" value="0.1" />
+    <xacro:property name="us_sensor_m" value="0.05" />
     <xacro:property name="us_sensor_r" value="0.02" />
     <xacro:property name="us_sensor_l" value="0.02" />
 

@@ -49,11 +49,32 @@ ros2 launch ddbot_description rviz.launch.py
 ![ddbot_description](assets/ddbot_description.png)
 
 ## ddbot_gazebo
-Содержит описание контроллера дифференциального привода и датчиков (imu, gps, lidar, depth camera):
+Содержит описание контроллера дифференциального привода и датчиков (IMU, лидар, камера глубины, 4 псевдо ультразвуковых датчика, GPS):
 ```bash
 ros2 launch ddbot_gazebo full.launch.py
 ```
 
 [Открыть видео](./assets/ddbot_gazebo.mp4)
 
-> Карта с препятствиями построена благодаря [Dynamic World Generator Wizard](https://github.com/ali-pahlevani/Dynamic_World_Generator)
+> Мир с препятствиями построен благодаря [Dynamic World Generator Wizard](https://github.com/ali-pahlevani/Dynamic_World_Generator)
+
+## ddbot_localization
+Содержит реализацию системы комплексирования навигационных данных на основе [robot_localization](https://github.com/cra-ros-pkg/robot_localization/tree/rolling-devel) (относительная оценка состояния: одометрия колес + IMU, глобальная оценка: локальная оценка + GPS):
+```bash
+ros2 launch ddbot_localization full.launch.py
+```
+
+[Открыть видео](./assets/ddbot_localization.mp4)
+
+## ddbot_slam
+Содержит реализацию SLAM на основе slam_toolbox.
+1. map->odom на основе сопоставления сканов (без GPS):
+```bash
+ros2 launch ddbot_slam slam_standalone.launch.py
+```
+2. map->odom на основе инъекции оценки состояния SLAM в расширенный фильтр калмана из **ddbot_localization**:
+```bash
+ros2 launch ddbot_slam full.launch.py
+```
+
+[Открыть видео](./assets/ddbot_gazebo.mp4)

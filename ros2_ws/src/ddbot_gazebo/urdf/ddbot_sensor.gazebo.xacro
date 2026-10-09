@@ -44,7 +44,7 @@
 
     <gazebo reference="rgbd_camera_frame">
         <sensor type="depth_camera" name="kinect_camera">
-            <update_rate>30.0</update_rate>
+            <update_rate>30</update_rate>
             <topic>rgbd_camera</topic>
             <ignition_frame_id>rgbd_camera_frame</ignition_frame_id>
             <camera_info_topic>rgbd_camera_frame/camera_info</camera_info_topic>
@@ -67,7 +67,7 @@
     <gazebo reference="imu">
         <sensor name="imu_sensor" type="imu">
             <always_on>1</always_on>
-            <update_rate>25</update_rate>
+            <update_rate>50</update_rate>
             <ignition_frame_id>imu</ignition_frame_id>
             <visualize>true</visualize>
             <topic>imu</topic>
@@ -78,7 +78,7 @@
     <gazebo reference="gps_tracker">
         <sensor name="navsat" type="navsat">
             <always_on>1</always_on>
-            <update_rate>10</update_rate>
+            <update_rate>5</update_rate>
             <topic>navsat</topic>
             <ignition_frame_id>gps_tracker</ignition_frame_id>
         </sensor>

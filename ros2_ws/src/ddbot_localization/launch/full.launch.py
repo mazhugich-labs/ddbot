@@ -27,6 +27,10 @@ def generate_launch_description():
         package="ddbot_teleop",
         executable="ddbot_teleop",
         output="screen",
+        remappings=[
+            ("ddbot/cmd_vel", "/ddbot/cmd_vel"),
+            ("ddbot/cmd_vel", "/cmd_vel"),
+        ]
     )
 
     ddbot_localization = IncludeLaunchDescription(

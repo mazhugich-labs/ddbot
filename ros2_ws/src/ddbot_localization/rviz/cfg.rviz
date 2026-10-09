@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /TF1/Frames1
       Splitter Ratio: 0.5
     Tree Height: 555
   - Class: rviz_common/Selection
@@ -169,8 +170,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: -2.179889440536499
-        Min Value: -9.382586479187012
+        Max Value: 7.716745376586914
+        Min Value: 0.7820156812667847
         Value: true
       Axis: X
       Channel Name: intensity
@@ -378,7 +379,7 @@ Visualization Manager:
         base_footprint:
           Value: false
         base_link:
-          Value: true
+          Value: false
         gps_tracker:
           Value: false
         imu:
@@ -417,7 +418,7 @@ Visualization Manager:
           Value: false
         wheel_rr:
           Value: false
-      Marker Scale: 1
+      Marker Scale: 5
       Name: TF
       Show Arrows: true
       Show Axes: true
@@ -516,9 +517,9 @@ Visualization Manager:
       Pitch: 1.5697963237762451
       Point towards: -z axis
       Position:
-        X: -0.023999422788619995
+        X: -0.02999928966164589
         Y: 0
-        Z: 23.999980926513672
+        Z: 29.99997329711914
       Target Frame: <Fixed Frame>
       Value: FrameAligned (rviz_default_plugins)
       Yaw: 0

@@ -68,13 +68,18 @@ ros2 launch ddbot_localization full.launch.py
 
 ## ddbot_slam
 Содержит реализацию SLAM на основе slam_toolbox.
-1. map->odom на основе сопоставления сканов (без GPS):
-```bash
-ros2 launch ddbot_slam slam_standalone.launch.py
-```
-2. map->odom на основе инъекции оценки состояния SLAM в расширенный фильтр калмана из **ddbot_localization**:
+> map->odom исключительно на основе сопоставления сканов (без GPS)
+Режим SLAM:
 ```bash
 ros2 launch ddbot_slam full.launch.py
 ```
 
-[Открыть видео](./assets/ddbot_gazebo.mp4)
+[Открыть видео](./assets/ddbot_slam.mp4)
+
+Режим локализации:
+```bash
+ros2 launch ddbot_slam full.launch.py set_localization_mode:=true
+```
+
+[Открыть видео](./assets/ddbot_slam_localization.mp4)
+

@@ -117,7 +117,7 @@ ekf_filter_node_map:
 
 navsat_transform:
   ros__parameters:
-    frequency: 5.0
+    frequency: 25.0
     
     magnetic_declination_radians: -0.40143
     

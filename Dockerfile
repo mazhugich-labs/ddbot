@@ -35,7 +35,9 @@ RUN apt-get update && apt-get install -y \
     ros-$ROS_DISTRO-ros2-control \
     ros-$ROS_DISTRO-ros2-controllers \
     ros-$ROS_DISTRO-slam-toolbox \
-    ros-$ROS_DISTRO-robot-localization
+    ros-$ROS_DISTRO-robot-localization \
+    ros-$ROS_DISTRO-navigation2 \
+    ros-$ROS_DISTRO-nav2-bringup
 
 RUN apt-get update && apt-get install -y \
     mesa-utils

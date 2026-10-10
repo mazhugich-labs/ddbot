@@ -172,8 +172,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: -13.763280868530273
-        Min Value: -21.57036590576172
+        Max Value: 8.153178215026855
+        Min Value: 0.8569798469543457
         Value: true
       Axis: X
       Channel Name: intensity
@@ -225,7 +225,7 @@ Visualization Manager:
       Position Transformer: XYZ
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.05000000074505806
+      Size (m): 0.10000000149011612
       Style: Flat Squares
       Topic:
         Depth: 5
@@ -492,5 +492,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1699
-  X: 421
-  Y: 101
+  X: 705
+  Y: 116

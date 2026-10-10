@@ -17,7 +17,10 @@ setup(
         (os.path.join("share", package_name, "launch"), glob("launch/*.launch.py")),
         (
             os.path.join("share", package_name, "maps"),
-            glob("maps/*.pgm") + glob("maps/*.yaml"),
+            glob("maps/*.pgm")
+            + glob("maps/*.yaml")
+            + glob("maps/*.data")
+            + glob("maps/*.posegraph"),
         ),
     ],
     install_requires=["setuptools"],

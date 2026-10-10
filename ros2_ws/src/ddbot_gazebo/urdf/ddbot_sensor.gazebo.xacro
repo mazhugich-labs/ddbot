@@ -78,7 +78,7 @@
     <gazebo reference="gps_tracker">
         <sensor name="navsat" type="navsat">
             <always_on>1</always_on>
-            <update_rate>5</update_rate>
+            <update_rate>1</update_rate>
             <topic>navsat</topic>
             <ignition_frame_id>gps_tracker</ignition_frame_id>
         </sensor>

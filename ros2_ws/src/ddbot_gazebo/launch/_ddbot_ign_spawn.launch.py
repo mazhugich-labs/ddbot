@@ -1,8 +1,9 @@
 import os
 
 from ament_index_python.packages import get_package_share_directory
-from launch.substitutions import Command
+from launch.substitutions import Command, LaunchConfiguration
 from launch_ros.actions import Node
+from launch.actions import DeclareLaunchArgument
 from launch import LaunchDescription
 
 
@@ -20,6 +21,8 @@ def generate_launch_description():
                     [
                         "xacro ",
                         os.path.join(pkg_share, "urdf/ddbot.xacro"),
+                        " ground_truth_odom:=",
+                        LaunchConfiguration("ground_truth_odom"),
                     ]
                 ),
                 "use_sim_time": True,
@@ -86,6 +89,7 @@ def generate_launch_description():
 
     return LaunchDescription(
         [
+            DeclareLaunchArgument("ground_truth_odom", default_value="false"),
             robot_state_publisher,
             gz_spawn_entity,
             gz_ros2_bridge,

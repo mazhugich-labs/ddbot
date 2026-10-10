@@ -32,15 +32,40 @@
 5. [] Записать видео 1–3 минуты.
 6. [] Оформить Git-репозиторий с README (инструкция запуска, зависимости, описание).
 
-## Описание пакетов ROS 2
-
-> Перед запуском необходимо забилдить пакеты:
+## Инструкция
+Изменить параметры доступа к файла для работы с Docker:
 ```bash
-colcon build --symlink-install
-source install/setup.bash
+chmod +x docker/{build,run,enter,stop}.sh
 ```
 
-## ddbot_description
+1. Забилдить контейнер:
+```
+docker/build.sh
+```
+
+2. Запустить контейнер:
+```
+docker/run.sh
+```
+
+3. Войти в контейнер:
+```
+docker/enter.sh
+```
+
+4. Остановить контейнер:
+    - Выход из контейнера:
+    ```bash
+    exit
+    ```
+    - Остановка контейнера:
+    ```bash
+    docker/stop.sh
+    ```
+
+## Описание пакетов ROS 2
+
+### ddbot_description
 Содержит описание 4-колесного мобильного робота с дифференциальным приводом:
 ```bash
 ros2 launch ddbot_description rviz.launch.py
@@ -48,7 +73,7 @@ ros2 launch ddbot_description rviz.launch.py
 
 ![ddbot_description](assets/ddbot_description.png)
 
-## ddbot_gazebo
+### ddbot_gazebo
 Содержит описание контроллера дифференциального привода и датчиков (IMU, лидар, камера глубины, 4 псевдо ультразвуковых датчика, GPS):
 ```bash
 ros2 launch ddbot_gazebo full.launch.py
@@ -58,17 +83,21 @@ ros2 launch ddbot_gazebo full.launch.py
 
 > Мир с препятствиями построен благодаря [Dynamic World Generator Wizard](https://github.com/ali-pahlevani/Dynamic_World_Generator)
 
-## ddbot_localization
-Содержит реализацию системы комплексирования навигационных данных на основе [robot_localization](https://github.com/cra-ros-pkg/robot_localization/tree/rolling-devel) (относительная оценка состояния: одометрия колес + IMU, глобальная оценка: локальная оценка + GPS):
+### ddbot_localization
+Содержит реализацию системы комплексирования навигационных данных на основе пакета [robot_localization](https://github.com/cra-ros-pkg/robot_localization/tree/rolling-devel).
+
+> **map** (GPS)->**odom** (кинематика + IMU)->**base_footprint**
+
 ```bash
 ros2 launch ddbot_localization full.launch.py
 ```
 
 [Открыть видео](./assets/ddbot_localization.mp4)
 
-## ddbot_slam
+### ddbot_slam
 Содержит реализацию SLAM на основе slam_toolbox.
-> map->odom исключительно на основе сопоставления сканов (без GPS)
+> **map**->**odom** исключительно на основе сопоставления сканов (без комплексирования GPS)
+
 Режим SLAM:
 ```bash
 ros2 launch ddbot_slam full.launch.py

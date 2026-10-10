@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <xacro:arg name="ground_truth_odom" default="false" />
+
     <!-- Skid Drive -->
     <gazebo>
         <plugin filename="ignition-gazebo-diff-drive-system"
@@ -19,8 +21,10 @@
 
             <topic>/cmd_vel</topic>
 
-            <odom_topic>/wheel/odom</odom_topic>
-            <tf_topic>/wheel/tf</tf_topic>
+            <xacro:unless value="$(arg ground_truth_odom)">
+                <odom_topic>/wheel/odom</odom_topic>
+                <tf_topic>/wheel/tf</tf_topic>
+            </xacro:unless>
 
             <max_wheel_torque>5</max_wheel_torque>
             <max_wheel_acceleration>2.5</max_wheel_acceleration>
@@ -29,5 +33,19 @@
             <child_frame_id>base_footprint</child_frame_id>
         </plugin>
     </gazebo>
+
+    <xacro:if value="$(arg ground_truth_odom)">
+        <gazebo>
+            <plugin filename="libignition-gazebo6-odometry-publisher-system"
+                name="ignition::gazebo::systems::OdometryPublisher">
+                <odom_frame>odom</odom_frame>
+                <robot_base_frame>base_footprint</robot_base_frame>
+                <odom_topic>/odom</odom_topic>
+                <tf_topic>/tf</tf_topic>
+                <dimensions>2</dimensions>
+                <odom_publish_frequency>10</odom_publish_frequency>
+            </plugin>
+        </gazebo>
+    </xacro:if>
 
 </robot>

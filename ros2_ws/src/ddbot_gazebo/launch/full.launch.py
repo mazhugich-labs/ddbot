@@ -19,6 +19,7 @@ def generate_launch_description():
         launch_arguments={
             "use_sim_time": "true",
             "world_file": LaunchConfiguration("world_file"),
+            "ground_truth_odom": "true",
         }.items(),
     )
 

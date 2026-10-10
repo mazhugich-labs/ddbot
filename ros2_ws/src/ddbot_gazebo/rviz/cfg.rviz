@@ -169,8 +169,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 8.153178215026855
-        Min Value: 0.8569798469543457
+        Max Value: -0.856459379196167
+        Min Value: -8.155099868774414
         Value: true
       Axis: X
       Channel Name: intensity
@@ -277,8 +277,6 @@ Visualization Manager:
           Value: false
         lidar:
           Value: false
-        map:
-          Value: true
         odom:
           Value: false
         rgbd_camera:
@@ -315,39 +313,38 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        map:
-          odom:
-            base_footprint:
-              base_link:
-                gps_tracker:
+        odom:
+          base_footprint:
+            base_link:
+              gps_tracker:
+                {}
+              imu:
+                {}
+              lidar:
+                {}
+              rgbd_camera:
+                rgbd_camera_frame:
                   {}
-                imu:
+              us_sensor_front:
+                {}
+              us_sensor_left:
+                {}
+              us_sensor_rear:
+                {}
+              us_sensor_right:
+                {}
+              wheel_mount_fl:
+                wheel_fl:
                   {}
-                lidar:
+              wheel_mount_fr:
+                wheel_fr:
                   {}
-                rgbd_camera:
-                  rgbd_camera_frame:
-                    {}
-                us_sensor_front:
+              wheel_mount_rl:
+                wheel_rl:
                   {}
-                us_sensor_left:
+              wheel_mount_rr:
+                wheel_rr:
                   {}
-                us_sensor_rear:
-                  {}
-                us_sensor_right:
-                  {}
-                wheel_mount_fl:
-                  wheel_fl:
-                    {}
-                wheel_mount_fr:
-                  wheel_fr:
-                    {}
-                wheel_mount_rl:
-                  wheel_rl:
-                    {}
-                wheel_mount_rr:
-                  wheel_rr:
-                    {}
       Update Interval: 0
       Value: true
     - Alpha: 0.699999988079071
@@ -549,7 +546,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 4.414767265319824
+      Distance: 17.00238037109375
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -585,5 +582,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1200
-  X: 775
-  Y: 188
+  X: 1066
+  Y: 184

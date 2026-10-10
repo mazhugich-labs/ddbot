@@ -35,7 +35,9 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             os.path.join(pkg_share, "launch", "_ddbot_ign_spawn.launch.py")
         ),
-        launch_arguments={}.items(),
+        launch_arguments={
+            "ground_truth_odom": LaunchConfiguration("ground_truth_odom"),
+        }.items(),
     )
 
     return LaunchDescription(
@@ -44,6 +46,7 @@ def generate_launch_description():
                 name="IGN_GAZEBO_RESOURCE_PATH", value=os.path.join(pkg_share, "worlds")
             ),
             DeclareLaunchArgument("world_file", default_value="default.sdf"),
+            DeclareLaunchArgument("ground_truth_odom", default_value="false"),
             gz_sim,
             spawn_bcr_bot_node,
         ]

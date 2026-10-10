@@ -29,26 +29,27 @@ FROM user_setup AS dependencies
 
 RUN apt-get update && apt-get install -y \
     ros-$ROS_DISTRO-joint-state-publisher \
-    ros-$ROS_DISTRO-joint-state-publisher-gui \
+    ros-$ROS_DISTRO-odom-to-tf-ros2 \
     ros-$ROS_DISTRO-rviz-imu-plugin \
     ros-$ROS_DISTRO-rviz-satellite \
     ros-$ROS_DISTRO-ros2-control \
     ros-$ROS_DISTRO-ros2-controllers \
     ros-$ROS_DISTRO-slam-toolbox \
     ros-$ROS_DISTRO-robot-localization \
-    ros-$ROS_DISTRO-navigation2 \
-    ros-$ROS_DISTRO-nav2-bringup
-
-RUN apt-get update && apt-get install -y \
+    # ros-$ROS_DISTRO-navigation2 \
+    # ros-$ROS_DISTRO-nav2-bringup \
     mesa-utils
 
 FROM dependencies AS final
 
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
 
+COPY --chown=$USERNAME:$USERNAME docker/entrypoint.sh /ddbot_entrypoint.sh
+RUN chmod +x /ddbot_entrypoint.sh
+
 USER $USERNAME
 
 WORKDIR /home/ros2_ws
 
-ENTRYPOINT [""]
+ENTRYPOINT ["/ddbot_entrypoint.sh"]
 CMD ["/bin/bash"]

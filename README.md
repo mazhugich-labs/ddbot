@@ -39,17 +39,17 @@ chmod +x docker/{build,run,enter,stop}.sh
 ```
 
 1. Забилдить контейнер:
-```
+```bash
 docker/build.sh
 ```
 
 2. Запустить контейнер:
-```
+```bash
 docker/run.sh
 ```
 
 3. Войти в контейнер:
-```
+```bash
 docker/enter.sh
 ```
 
@@ -79,7 +79,8 @@ ros2 launch ddbot_description rviz.launch.py
 ros2 launch ddbot_gazebo full.launch.py
 ```
 
-[Открыть видео](./assets/ddbot_gazebo.mp4)
+https://github.com/user-attachments/assets/0318aa5d-25d0-43a8-b7bf-b422deb59c7f
+
 
 > Мир с препятствиями построен благодаря [Dynamic World Generator Wizard](https://github.com/ali-pahlevani/Dynamic_World_Generator)
 
@@ -92,7 +93,7 @@ ros2 launch ddbot_gazebo full.launch.py
 ros2 launch ddbot_localization full.launch.py
 ```
 
-[Открыть видео](./assets/ddbot_localization.mp4)
+https://github.com/user-attachments/assets/d12dfe32-a63f-4944-9cb6-ff804dec1cf6
 
 ### ddbot_slam
 Содержит реализацию SLAM на основе slam_toolbox.
@@ -103,12 +104,12 @@ ros2 launch ddbot_localization full.launch.py
 ros2 launch ddbot_slam full.launch.py
 ```
 
-[Открыть видео](./assets/ddbot_slam.mp4)
+https://github.com/user-attachments/assets/c9800de2-e6e5-4ad2-a33c-721f4c9a67e3
 
 Режим локализации:
 ```bash
 ros2 launch ddbot_slam full.launch.py set_localization_mode:=true
 ```
 
-[Открыть видео](./assets/ddbot_slam_localization.mp4)
+https://github.com/user-attachments/assets/6a12a04b-cc8b-4d8b-bee5-2b45483ea171
 
